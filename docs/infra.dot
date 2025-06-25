@@ -1,0 +1,8 @@
+digraph INFRA {
+  node [ color = "black", fillcolor = "#E6E6E6", height =1, style = "filled,bold,rounded", fontname = "Arial" ];
+  "QWordsWordFiles" [ label = "QWordsWordFiles
+(AWS::S3::Bucket)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "QWordsWordFilesPolicy" [ label = "QWordsWordFilesPolicy
+(AWS::S3::BucketPolicy)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "QWordsWordFilesPolicy" -> "QWordsWordFiles";
+}

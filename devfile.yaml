@@ -1,0 +1,70 @@
+schemaVersion: 2.0.0
+metadata:
+  name: qwords-devfile
+  description: Devfile for Q-Words (Qordle) Spring Boot application
+components:
+  - name: dev 
+    container:
+      image: public.ecr.aws/aws-mde/universal-image:latest
+      memoryLimit: 2Gi
+      cpuLimit: 1000m
+      env:
+        - name: JAVA_HOME
+          value: /usr/lib/jvm/java-17-openjdk
+        - name: MAVEN_HOME
+          value: /usr/share/maven
+        - name: SERVER_PORT
+          value: "8090"
+commands:
+  - id: install
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "mvn clean install -DskipTests"
+      group:
+        kind: build
+        isDefault: true
+  - id: build
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "mvn clean compile"
+      group:
+        kind: build
+  - id: test
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "mvn test"
+      group:
+        kind: test
+        isDefault: true
+  - id: run
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8090'"
+      group:
+        kind: run
+        isDefault: true
+  - id: package
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "mvn clean package"
+      group:
+        kind: build
+  - id: setup-proxy
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}/proxy
+      commandLine: "npm install"
+      group:
+        kind: build
+  - id: run-proxy
+    exec:
+      component: dev
+      workingDir: ${PROJECT_SOURCE}/proxy
+      commandLine: "node server.js"
+      group:
+        kind: run
