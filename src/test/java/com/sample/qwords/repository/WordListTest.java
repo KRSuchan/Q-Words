@@ -11,8 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-// TODO: Upgrade from java v1.8 to 17
-// Comprehensive tests for WordList class
 public class WordListTest {
     
     private WordList wordList;
